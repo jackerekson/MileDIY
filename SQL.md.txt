@@ -1,0 +1,46 @@
+Table "users" {
+  "user_id" int [pk, increment]
+  "user_email" VARCHAR(50)
+  "user_password" VARCHAR(50)
+  "user_name" VARCHAR(20)
+}
+
+Table "trip" {
+  "trip_id" int [pk, increment]
+  "gallons_added" FLOAT
+  "miles_driven" FLOAT
+  "price_per_gallon" FLOAT
+}
+
+Table "user_trip" {
+  "user_trip" int [pk, increment]
+  "user_id" INT [not null]
+  "trip_id" INT [not null]
+}
+
+Ref:"users"."user_id" < "user_trip"."user_id"
+
+Ref:"trip"."trip_id" < "user_trip"."trip_id"
+
+
+https://docs.google.com/document/d/1tJ-BhSB49ySQYQOJB2IiqxLvVwkFQNJbcS014aI3bXI/edit?usp=sharing
+
+
+CREATE TABLE users(
+  user_id SERIAL PRIMARY KEY,
+  user_email VARCHAR(50), 
+  user_password VARCHAR(50),
+  user_name VARCHAR (20)
+  );
+
+CREATE TABLE trip(
+Trip_id SERIAL PRIMARY KEY,
+Gallons_added FLOAT,
+Miles_driven FLOAT,
+Price_per_gallon FLOAT
+);
+CREATE TABLE user_trip(
+User-trip SERIAL PRIMARY KEY,
+User_id INT NOT NULL REFERENCES users(user_id)
+Trip_id INT NOT NULL REFERENCES trip(trip_id)
+);
