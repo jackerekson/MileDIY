@@ -15,7 +15,7 @@ as users add to it.
 
 ## Features
 
-- Users can find gas near them without loging in
+- Users can find gas near them without logging in
 - Users can create an account
 - Users can track their gas mileage
 - Users can track their gas spendings
