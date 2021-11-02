@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+ul.tripCard{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    padding: 0 0.75rem;
+}
+
+ul.tripCard li{
+    list-style-type: none;
+}
+
+.line{
+    display: flex;
+    justify-content: space-between;
+}

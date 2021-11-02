@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import GasList from '../components/GasList';
 
-const Gas = ({ lat, long, radius }) => {
+const Gas = ({ lat, long, radius, onSelect, setMapShow, setUserId }) => {
     const [info, setInfo] = useState([])
 
     const handleClick = async () => {
@@ -13,7 +13,6 @@ const Gas = ({ lat, long, radius }) => {
                 long, 
                 radius
             })
-                console.log(res.data)
                 setInfo(res.data)
             } catch (err) {
                 console.log(err)
@@ -23,8 +22,9 @@ const Gas = ({ lat, long, radius }) => {
 
     return (
         <div>
-            <button onClick={handleClick}>Click me!</button>
-            <GasList info={info} />
+            <button onClick={handleClick}>Find Gas</button>
+            <button onClick={e=>setUserId(null)}>Logout</button>
+            <GasList setMapShow={setMapShow} info={info} radius={radius} onGasSelect={onSelect}/>
         </div>
     )
 }

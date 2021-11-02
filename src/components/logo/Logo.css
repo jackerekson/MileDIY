@@ -1,0 +1,12 @@
+.logo {
+    height: 10vh;
+    background-color:#3369ff;
+    width: 100vw;
+}
+
+.title{
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    width: 100vw;
+}
