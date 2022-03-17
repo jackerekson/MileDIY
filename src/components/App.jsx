@@ -5,9 +5,10 @@ import Geolocation from '../api/Geolocation'
 import Trip from './trip/Trip'
 import Map from '../api/Map'
 import LoginReq from '../api/login/LoginReq'
-import Header from './header/Header'
 import Route from './Route'
 import Logo from './logo/Logo'
+import About from './About'
+import './App.css'
 
 const App = () => {
     const [lat, setLat] = useState(null)
@@ -26,30 +27,34 @@ const App = () => {
             <div className='pageLayout'>
                 <Logo />
                 <LoginReq setUserId={setUserId} setUserInfo={setUserInfo} />
-                <div className='logo'>footer</div>
+                <div type='hidden'></div>
             </div>
         )
     }
     return (
         <div>
             <Route path='/gasStation'>
-                <Logo />
-                <Header />
-                <Geolocation lat={lat} setLat={setLat} setLong={setLong} />
-                <Dropdown setRadius={setRadius} />
-                <Gas lat={lat} long={long} radius={radius} onSelect={onGasSelect} setMapShow={setMapShow} setUserId={setUserId} />
-                <Map lat={lat} long={long} destination={currentGasStation?.geometry?.coordinates} mapShow={mapShow} setMapShow={setMapShow} />
+                <div className='gasPump'>
+                    <Logo userId={userId} setUserId={setUserId}/>
+                    <Geolocation lat={lat} setLat={setLat} setLong={setLong} />
+                    <div className='dropDown'>
+                        <Dropdown setRadius={setRadius} />
+                    </div>
+                    <Gas lat={lat} long={long} radius={radius} onSelect={onGasSelect} setMapShow={setMapShow} />
+                    <Map lat={lat} long={long} destination={currentGasStation?.geometry?.coordinates} mapShow={mapShow} setMapShow={setMapShow} />
+                </div>
             </Route>
             <Route path='/trips'>
-                <Logo />
-                <Header />
-                <Trip setUserId={setUserId} userId={userId} />
+                <div className='tripRoad'>
+                    <Logo userId={userId} setUserId={setUserId}/>
+                    <Trip userId={userId} />
+                </div>
             </Route>
             <Route path='/'>
-                <Logo />
-                <Header />
-                <button onClick={e=>setUserId(null)}>Logout</button>
-
+                <div className='homeRoad'>
+                    <Logo  userId={userId} setUserId={setUserId}/>
+                    <About />
+                </div>
             </Route>
         </div>
     )

@@ -52,5 +52,5 @@ const MapContainer = ({google, lat, long, destination, mapShow, setMapShow}) => 
 
 
 export default GoogleApiWrapper({
-  
+  // apiKey: ('AIzaSyCPFp_bLVCA0_0gRBTQu9Wp-6jXL6urULE')
 })(MapContainer)

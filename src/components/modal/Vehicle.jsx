@@ -3,7 +3,7 @@ import axios from 'axios'
 import { VehiclesApi } from '../../api/vehiclesApi'
 import './Modal.css'
 
-const Vehicle = ({ show, setShow, userId, setDebouncedTrip, tripData }) => {
+const Vehicle = ({ show, setShow, userId, setDebouncedTrip }) => {
     const [vehicles, setVehicles] = useState([])
     const [models, setModels] = useState([])
     const [year, setYear] = useState(0)
@@ -44,7 +44,7 @@ const Vehicle = ({ show, setShow, userId, setDebouncedTrip, tripData }) => {
         axios.post('http://localhost:3001/addvehicle', { make, year, model })
         axios.post('http://localhost:3001/addtrip', {userId, tripName})
         setShow(false)
-        setDebouncedTrip(tripData)
+        setDebouncedTrip(3)
     }
 
     //making the api call for vehicle makes

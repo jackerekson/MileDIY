@@ -4,13 +4,14 @@ import AddTrip from '../modal/AddTrip';
 import Vehicle from '../modal/Vehicle'
 import './Trip.css'
 
-const Trip = ({ setUserId, userId }) => {
+const Trip = ({ userId }) => {
     const [show, setShow] = useState(false)
     const [tripData, setTripData] = useState([])
     const [tripId, setTripId] = useState(null)
     const [showAddTrip, setShowAddTrip] = useState(false)
     const [debouncedTrip, setDebouncedTrip] = useState()
     const [tripLegData, setTripLegData] = useState(null)
+    const deleteButton = document.querySelector('.deleteButton')
     let showTrips
 
     
@@ -31,18 +32,38 @@ const Trip = ({ setUserId, userId }) => {
             let trip=tripInfo[0]
             tripMiles = trip.miles.toFixed(2)
             averageMPG = (trip.miles/trip.gallons).toFixed(2)
-            price = trip.price.toFixed(2)
+            price = (trip.price*trip.gallons).toFixed(2)
         }
 
-        const noMoreAdds = () => {
-            const add = document.querySelector('#add')
-            add.parentNode.removeChild(add)
+        const noMoreAdds = (e) => {
+            const target = e.target.parentNode
+            console.log(e.currentTarget.parentNode.getAttribute("postid"))
+            const add = target.querySelector('#add')
+            const finish = target.querySelector('#finish')
+            const button = document.createElement('button')
+            const text = document.createTextNode('Delete')
+            button.appendChild(text)
+            button.classList.add('deleteButton')
+            target.removeChild(add)
+            target.removeChild(finish)
+            target.appendChild(button)
+            const deleteButton = target.querySelector('.deleteButton')
         }
+
+        if(deleteButton){
+            deleteButton.onclick = function(e) {
+                const index = e.currentTarget.parentNode.getAttribute("postid")
+                axios.post('http://localhost:3001/delete', {userId, index})
+                setDebouncedTrip(5)
+                console.log(debouncedTrip)
+            }
+        }
+        
 
 
         return(
             <ul key={e.trip_id} className='tripCard'>
-                <li><h2>{(e.trip_name).toUpperCase()}</h2></li>
+                <li>{(e.trip_name).toUpperCase()}</li>
                 <span className='line'>
                     <p>Miles Driven: </p>
                     <li>{tripMiles}</li>
@@ -55,12 +76,12 @@ const Trip = ({ setUserId, userId }) => {
                     <p>Total Spent: </p>
                     <li>{price}</li>
                 </span>
-                <div>
+                <div className='ulButtons' postid={e.trip_id}>
                     <button id='add' onClick={e=>{
                         setTripId(key)
                         setShowAddTrip(true)    
                     }}>Add stop</button>
-                    <button onClick={noMoreAdds}>Finish Trip</button>
+                    <button id='finish' onClick={noMoreAdds}>Finish Trip</button>
                 </div>
             </ul>
         )
@@ -70,12 +91,12 @@ const Trip = ({ setUserId, userId }) => {
     const trips = async() => {
         const res = await axios.post('http://localhost:3001/trips', {userId})
         setTripData(res.data.rows)
-        // setDebouncedTrip(1)
+        // setDebouncedTrip(2)
     }
     const tripInfo = async() => {
         const res = await axios.post('http://localhost:3001/tripinfo', {userId})
         setTripLegData(res.data.rows)
-        // setDebouncedTrip(1)
+        setDebouncedTrip(1)
     }
     
     useEffect(() => {
@@ -85,11 +106,10 @@ const Trip = ({ setUserId, userId }) => {
    
     return (
         <div className='container'>
-            <Vehicle show={show} setShow={setShow} userId={userId} tripData={tripData} setDebouncedTrip={setDebouncedTrip} />
+            <Vehicle show={show} setShow={setShow} userId={userId} setDebouncedTrip={setDebouncedTrip} />
             <AddTrip userId={userId} showAddTrip={showAddTrip} setShowAddTrip={setShowAddTrip} tripId={tripId} setDebouncedTrip={setDebouncedTrip} />
             <div className='buttons'>
                 <button onClick={e => setShow(true)}>New Trip</button>
-                <button onClick={e=>setUserId(null)}>Logout</button>
             </div>
             <div className='cardContainer container'>
                 {showTrips}

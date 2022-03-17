@@ -9,13 +9,24 @@ ul.tripCard{
     justify-content: space-between;
     width: 100vw;
     padding: 0 0.75rem;
+    padding-right: none;
 }
 
 ul.tripCard li{
     list-style-type: none;
+    padding-right: 10px;
 }
 
 .line{
     display: flex;
     justify-content: space-between;
+}
+
+.line{
+    flex-direction: column;
+
+}
+
+.ulButtons{
+    width: 26vw;
 }

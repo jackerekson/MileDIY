@@ -1,7 +1,11 @@
 .logo {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
     height: 10vh;
-    background-color:#3369ff;
+    /* background-color:#65676e; */
     width: 100vw;
+    justify-content: space-between;
 }
 
 .title{
@@ -9,4 +13,17 @@
     align-self: center;
     justify-self: center;
     width: 100vw;
+}
+
+a{
+    color: goldenrod
+}
+
+.header{
+    flex-direction: column;
+    max-width: 5vh
+}
+
+.milediy{
+    max-width: 70vw;
 }

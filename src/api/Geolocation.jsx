@@ -18,13 +18,13 @@ const Geolocation = ({ setLat, setLong, lat }) => {
         }
 
         if(!errMsg && lat) {
-            return `Distance`
+            return
         }
 
         return <Spinner message='Please accept location request' />
     }
     return (
-        <div>
+        <div className='distanceDiv'>
             {renderContent()}
         </div>
     )

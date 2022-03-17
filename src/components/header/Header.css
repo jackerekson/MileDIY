@@ -1,5 +1,6 @@
 .header{
     height: 10vh;
     display: flex;
-    align-content: space-around;
+    align-content: space-between;
+    padding-right: 62px;
 }

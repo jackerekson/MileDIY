@@ -3,7 +3,8 @@ import React from 'react'
 const Dropdown = ({ setRadius }) => {
 
     return (
-        <div>
+        <div className='dropDownContent'>
+            <div className='distnaceDiv'>Distance</div>
             <form id='dropDown'>
                 <select id='distance' onChange={(e)=>setRadius(e.target.value)}>
                     <option value='2'>2</option>

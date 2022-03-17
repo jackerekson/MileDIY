@@ -98,5 +98,14 @@ app.post('/tripinfo', (req,res) => {
     }
 })
 
+app.post('/delete', (req,res) => {
+    try{
+        const {userId, index} = req.body
+        pool.query('DELETE FROM trip WHERE trip_id=$1 AND user_id=$2', [index, userId])
+    } catch(err){
+        res.status(400).send(err)
+    }
+})
+
 app.listen(3001, () => console.log('running on 3001'))
 
